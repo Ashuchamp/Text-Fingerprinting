@@ -1,6 +1,6 @@
 from flask import Flask
 from flask import request
-from classify import classify_proba, classify
+from classify import classify_proba, classify, classify_custom
 
 app = Flask(__name__)
 
@@ -33,5 +33,6 @@ def predict_custom():
 	# Some user writing samples
 	text_samples = request.form['text']
 	test = request.form['test']
+	author_name = request.form['author']
 
-	return {}
+	return classify_custom(text_samples, author_name, test)
