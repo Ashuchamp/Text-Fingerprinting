@@ -15,6 +15,7 @@ def predict_proba():
 	
 	# Returns list of tuples of the form (author, probability)
 	results = classify_proba(text)
+	print(results)
 	probabilities = {}
 
 	for author, percentage in results:
@@ -22,12 +23,12 @@ def predict_proba():
 
 	return probabilities
 
-@app.route('/predict', methods='POST')
+@app.route('/predict', methods=['POST'])
 def predict():
 	text = request.form['text']
 	return classify(text)
 
-@app.route('/predict_custom', methods='POST')
+@app.route('/predict_custom', methods=['POST'])
 def predict_custom():
 	# Some user writing samples
 	text_samples = request.form['text']

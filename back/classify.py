@@ -34,7 +34,7 @@ def classify_proba(text):
 
 	# clf uses log loss, so predict_proba works
 	clf = load('data/clf.joblib')
-	return zip(clf.classes_, clf.predict_proba([text]))
+	return list(zip(list(clf.classes_), list(clf.predict_proba([text])[0])))
 
 def main():
 	X, y = getXandY(DataUtils('data', 'input.txt').get_data())
