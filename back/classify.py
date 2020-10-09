@@ -19,6 +19,23 @@ def getXandY(d):
 	y = arr[:, len(arr[0]) - 1]
 	return X, y
 
+def classify(text):
+	'''
+	Classifies text
+	'''
+
+	clf = load('data/gs_clf.joblib')
+	return clf.predict([text])[0]
+
+def classify_proba(text):
+	'''
+	Classifies text with probability output
+	'''
+
+	# clf uses log loss, so predict_proba works
+	clf = load('data/clf.joblib')
+	return zip(clf.classes_, clf.predict_proba([text]))
+
 def main():
 	X, y = getXandY(DataUtils('data', 'input.txt').get_data())
 
