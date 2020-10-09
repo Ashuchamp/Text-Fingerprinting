@@ -34,7 +34,26 @@ def classify_proba(text):
 
 	# clf uses log loss, so predict_proba works
 	clf = load('data/clf.joblib')
-	return zip(clf.classes_, clf.predict_proba([text]))
+	return list(zip(list(clf.classes_), list(clf.predict_proba([text])[0])))
+
+def classify_custom(text_samples, author_name, test):
+	X, y = getXandY(DataUtils('data', 'input.txt').get_data())
+	X.extend(text_samples)
+	y.extend(author_name)
+
+	X_train, X_test, y_train, y_test = test_train_split(
+		X, y, test_size=0.0, random_state=42
+	)
+
+	clf = Pipeline([
+		('vect', CountVectorizer()),
+		('tfidf', TfidfTransformer()),
+		('clf', SGDClassifier(loss='log', penalty='l2', alpha=1e-3, random_state=42, max_iter=5, tol=None)),
+	])
+	clf.fit(X_train, y_train)
+
+	predicted = clf.predict_proba([test])[0]
+	return list(zip(list(clf.classes_), list(predicted)))
 
 def main():
 	X, y = getXandY(DataUtils('data', 'input.txt').get_data())

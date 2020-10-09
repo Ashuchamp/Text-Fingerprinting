@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import request
-from classify import classify_proba, classify
+from classify import classify_proba, classify, classify_custom
+
 
 app = Flask(__name__)
 
@@ -22,15 +23,18 @@ def predict_proba():
 
 	return probabilities
 
-@app.route('/predict', methods='POST')
+
+@app.route('/predict', methods=['POST'])
 def predict():
 	text = request.form['text']
 	return classify(text)
 
-@app.route('/predict_custom', methods='POST')
+
+@app.route('/predict_custom', methods=['POST'])
 def predict_custom():
 	# Some user writing samples
 	text_samples = request.form['text']
 	test = request.form['test']
+	author_name = request.form['author']
 
-	return {}
+	return classify_custom(text_samples, author_name, test)
