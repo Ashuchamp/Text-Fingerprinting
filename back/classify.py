@@ -55,7 +55,6 @@ def classify_custom(text_samples, author_name, test):
 	predicted = clf.predict_proba([test])[0]
 	return list(zip(list(clf.classes_), list(predicted)))
 
-
 def main():
 	X, y = getXandY(DataUtils('data', 'input.txt').get_data())
 
