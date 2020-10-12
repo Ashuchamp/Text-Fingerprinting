@@ -1,23 +1,31 @@
-import tkinter as tk
+import tkinter as ttk 
+from tkinter import *
 import requests as req
 import json
 
-window = tk.Tk()
 
-window.title("Text fingerprinting pre-determined authors")
+root = ttk.Tk()
+root.title('testing scrolling')
+root.geometry("800x600")
 
-window.geometry("2000x1000")
+main_frame = Frame(root)
+main_frame.pack(fill=BOTH, expand=1)
 
+my_canvas = Canvas(main_frame)
+my_canvas.pack(side=LEFT, fill=BOTH, expand=1)
 
+my_scrollbar = ttk.Scrollbar(main_frame, orient=VERTICAL, command=my_canvas.yview)
+my_scrollbar.pack(side=RIGHT, fill=Y)
 
-title = tk.Label(text="welcome to text-fingerprinting")
-subtitle = tk.Label(text = "insert text in textbox to find if your text matches with anyone")
-info = tk.Label(text = "yellow is text you want to get checked")
-info1 = tk.Label(text = "for custom author insert training text for each author in red, green and orange text boxes. Then click custom authors")
-title.grid(row=1)
-subtitle.grid(row=2)
-info.grid(row = 3)
-info1.grid(row = 4)
+my_canvas.configure(yscrollcommand=my_scrollbar.set)
+my_canvas.bind('<Configure>', lambda e: my_canvas.configure(scrollregion = my_canvas.bbox("all")))
+
+second_frame = Frame(my_canvas)
+
+my_canvas.create_window((0, 0), window=second_frame, anchor="nw")
+
+## for thing in range(100):
+#   Button(second_frame, text=f'Button {thing}').grid(row=thing, column = 0, pady=1, padx=1)
 
 def submit_text():
   input_text = text.get("1.0", 'end-1c')
@@ -43,25 +51,30 @@ def submit_text():
 def custom_authors():
   print("give info to backend using HTTPS request for custom author")
 
-text = tk.Text(window, height = 4, width = 99, bg='yellow')
+title = ttk.Label(second_frame, text="welcome to text-fingerprinting").grid(row=1)
+subtitle = ttk.Label(second_frame, text="insert text in textbox to find if your text matches with anyone").grid(row=2)
+info = ttk.Label(second_frame, text = "yellow is text you want to get checked").grid(row=3)
+info1 = ttk.Label(second_frame, text = "for custom author insert training text for each author in red, green and orange text boxes. Then click custom authors").grid(row=4)
+
+text = ttk.Text(second_frame, height = 4, width = 90, bg='yellow')
 text.grid(row=5)
 
-custom1 = tk.Text(window, height = 4, width = 50, bg='red')
+custom1 = ttk.Text(second_frame, height = 4, width = 50, bg='red')
 custom1.grid(row=6)
 
-custom2 = tk.Text(window, height = 4, width = 50, bg='green')
+custom2 = ttk.Text(second_frame, height = 4, width = 50, bg='green')
 custom2.grid(row=7)
 
-custom3 = tk.Text(window, height = 4, width = 50, bg='orange')
+custom3 = ttk.Text(second_frame, height = 4, width = 50, bg='orange')
 custom3.grid(row=8)
 
-submit = tk.Button(text="Submit Text - check against our list", command = submit_text)
+submit = ttk.Button(second_frame, text="Submit Text - check against our list", command = submit_text)
 submit.grid(row=9)
 
-results = tk.Text(window, height = 5, width = 50)
+results = ttk.Text(second_frame, height = 10, width = 50)
 results.grid(row=11)
 
-changeDir = tk.Button(text="Custom Authors - check against your list", command = custom_authors)
+changeDir = ttk.Button(second_frame, text="Custom Authors - check against your list", command = custom_authors)
 changeDir.grid(row=10)
 
-window.mainloop()
+root.mainloop()
