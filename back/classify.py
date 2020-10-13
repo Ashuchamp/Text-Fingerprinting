@@ -39,7 +39,7 @@ def classify_proba(text):
 def classify_custom(text_samples, author_name, test):
 	X, y = getXandY(DataUtils('data', 'input.txt').get_data())
 	X.extend(text_samples)
-	y.extend(author_name)
+	y.extend([author_name for sample in text_samples])
 
 	X_train, X_test, y_train, y_test = test_train_split(
 		X, y, test_size=0.0, random_state=42
