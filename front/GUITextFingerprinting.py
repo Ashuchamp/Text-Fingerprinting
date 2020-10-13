@@ -70,6 +70,7 @@ def custom_authors():
   global customs
   global removeCustom
   global addCustom
+  madeRightNow = False
   customs += 1
   if(customs == 1):
     addCustom = ttk.Button(second_frame, text="Add custom author", command = custom_authors_add)
@@ -78,24 +79,38 @@ def custom_authors():
     removeCustom.grid(row=8)
     results.grid(row = 11)
     addCustom.grid(row = 10)
-    
+    custom1 = ttk.Text(second_frame, height = 4, width = 50, bg='red')
+    customList.append(custom1)
+    offset+=1
+    custom1.grid(row=5+offset)  
+    submit.grid(row=6+offset)
+    results.grid(row=10+offset)
+    changeDir.grid(row=offset+7)
+    removeCustom.grid(row = 8 + offset)
+    addCustom.grid(row = 9 + offset)
+    print("Made button for first time")
+    print("after 1st button size: " + str(len(customList)))
+    madeRightNow = True
+  
+  if(customs >= 1 and madeRightNow == False):
+    final_list = []
+    test_data = text.get('1.0', 'end-1c')
+    for x in customList:
+      print(x.get('1.0', 'end-1c'))
+      final_list.append(x.get('1.0', 'end-1c'))
+    my_obj = {'test': test_data, 'text': final_list, 'author':"user"}
+    response = req.post('http://writeprint.herokuapp.com/predict_custom', my_obj)
+    parsedResponse = json.loads(response.text)
+    sortedresponse = sorted(parsedResponse.items(), key = lambda x:x[1], reverse=True)
+    print(json.dumps(sortedresponse, indent=4))
+
 
   #if(customs ==1):
     ##removeCustom.grid(row =8)
     # changeDir.grid(row=7)
     #results.grid(row = 10)
     #addCustom.grid(row = 9)
-  custom1 = ttk.Text(second_frame, height = 4, width = 50, bg='red')
-  customList.append(custom1)
-  offset+=1
-  custom1.grid(row=5+offset)  
-  submit.grid(row=6+offset)
-  results.grid(row=10+offset)
-  changeDir.grid(row=offset+7)
-  removeCustom.grid(row = 8 + offset)
-  addCustom.grid(row = 9 + offset)
-  print("give info to backend using HTTPS request for custom author")
-  print("after 1st button size: " + str(len(customList)))
+  
  # print(customList)
 
 def custom_authors_add():
