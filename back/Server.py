@@ -37,4 +37,10 @@ def predict_custom():
 	test = request.form['test']
 	author_name = request.form['author']
 
-	return classify_custom(text_samples, author_name, test)
+	results = classify_custom(text_samples, author_name, test)
+	probabilities = {}
+
+	for author, percentage in results:
+		probabilities[author] = percentage
+
+	return probabilities

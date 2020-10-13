@@ -7,6 +7,7 @@ from sklearn.linear_model import SGDClassifier
 from sklearn.pipeline import Pipeline
 from sklearn.model_selection import GridSearchCV
 from sklearn.model_selection import train_test_split
+from sklearn.utils import shuffle
 import numpy as np
 from DataUtils import DataUtils
 from joblib import dump, load
@@ -38,12 +39,11 @@ def classify_proba(text):
 
 def classify_custom(text_samples, author_name, test):
 	X, y = getXandY(DataUtils('data', 'input.txt').get_data())
+	y = list(y)
 	X.extend(text_samples)
 	y.extend([author_name for sample in text_samples])
 
-	X_train, X_test, y_train, y_test = test_train_split(
-		X, y, test_size=0.0, random_state=42
-	)
+	X_train, y_train = shuffle(X, y)
 
 	clf = Pipeline([
 		('vect', CountVectorizer()),
