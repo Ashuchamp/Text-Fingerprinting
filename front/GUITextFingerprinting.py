@@ -72,18 +72,21 @@ def custom_authors():
   global addCustom
   madeRightNow = False
   customs += 1
-  if(customs == 1):
+  
+  if(customs <= 1):
     addCustom = ttk.Button(second_frame, text="Add custom author", command = custom_authors_add)
     removeCustom = ttk.Button(second_frame, text="Remove last added custom author", command = remove_custom)
     addCustom.grid(row=9)
+    submit.destroy()
     removeCustom.grid(row=8)
     results.grid(row = 11)
     addCustom.grid(row = 10)
     custom1 = ttk.Text(second_frame, height = 4, width = 50, bg='red')
+    custom1.insert('1.0', "please insert training text (about 1 paragraph)...")
     customList.append(custom1)
     offset+=1
-    custom1.grid(row=5+offset)  
-    submit.grid(row=6+offset)
+    custom1.grid(row=5+offset, pady=(3, 1.5))  
+    #submit.grid(row=6+offset)
     results.grid(row=10+offset)
     changeDir.grid(row=offset+7)
     removeCustom.grid(row = 8 + offset)
@@ -103,6 +106,10 @@ def custom_authors():
     parsedResponse = json.loads(response.text)
     sortedresponse = sorted(parsedResponse.items(), key = lambda x:x[1], reverse=True)
     print(json.dumps(sortedresponse, indent=4))
+    formattedData = ""
+    for x in sortedresponse:
+      formattedData += x[0] + ": " + str(round(x[1]*100, 2)) + "%\n"
+    results.insert('1.0', formattedData)
 
 
   #if(customs ==1):
@@ -121,8 +128,9 @@ def custom_authors_add():
   customList.append(custom1)
   offset+=1
   customs += 1
-  custom1.grid(row=5+offset)  
-  submit.grid(row=6+offset)
+  custom1.grid(row=5+offset, pady=(1.5, 1.5))  
+  custom1.insert('1.0', "please insert training text (about 1 paragraph)...")
+  #submit.grid(row=6+offset)
   results.grid(row=10+offset)
   changeDir.grid(row=offset+7)
   addCustom.grid(row = offset + 9)
@@ -138,6 +146,8 @@ def remove_custom():
   offset -=0
  
   if(customs <= 0):
+    submit = ttk.Button(second_frame, text="Submit Text - check against our list", command = submit_text)
+    submit.grid(row=6)
     changeDir['text'] = "Want to compare against custom authors?"
     removeCustom.destroy()
     addCustom.destroy()
@@ -146,13 +156,13 @@ def remove_custom():
 
   
   else:
-    submit.grid(row=6+offset)
+    #submit.grid(row=6+offset)
     results.grid(row=10+offset)
     changeDir.grid(row=offset+7)
     addCustom.grid(row = offset + 9)
     removeCustom.grid(row = 8 + offset)
-    customList[0].destroy()
-    customList.pop(0)
+    customList[len(customList)-1].destroy()
+    customList.pop(len(customList)-1)
   print("remove: " + str(customs))
   print("after remove button size: " + str(len(customList)))
 
@@ -163,13 +173,16 @@ info = ttk.Label(second_frame, text = "yellow is text you want to get checked").
 info1 = ttk.Label(second_frame, text = "for custom author insert training text for each author in red, green and orange text boxes. Then click custom authors").grid(row=4)
 
 text = ttk.Text(second_frame, height = 4, width = 90, bg='yellow')
-text.grid(row=5)
+#text.insert('1,0', "Insert Text you want to get tested")
+text.insert('1.0', "please insert text you want to test...")
+text.grid(row=5, pady=(15, 0))
 
 submit = ttk.Button(second_frame, text="Submit Text - check against our list", command = submit_text)
-submit.grid(row=6)
+
+submit.grid(row=6, pady=(3, 0))
 
 results = ttk.Text(second_frame, height = 50, width = 50)
-results.grid(row=8)
+results.grid(row=8, pady=7)
 
 changeDir = ttk.Button(second_frame, text="Want to compare against custom authors?", command = custom_authors)
 changeDir.grid(row=7)
