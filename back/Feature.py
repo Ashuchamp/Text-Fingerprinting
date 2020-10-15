@@ -76,7 +76,7 @@ class Feature:
 		function_words_count = len(set(text_tokenized).intersection(set(function_words)))
 	
 		return function_words_count / word_count
-
+	
 	def extract_features(self):
 		'''
 		Returns a list of the features for the text

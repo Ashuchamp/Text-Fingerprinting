@@ -37,6 +37,23 @@ def classify_proba(text):
 	clf = load('data/clf.joblib')
 	return list(zip(list(clf.classes_), list(clf.predict_proba([text])[0])))
 
+def get_pipeline():
+	return Pipeline([
+		('vect', CountVectorizer()),
+		('tfidf', TfidfTransformer()),
+		('clf', SGDClassifier(loss='log', penalty='l2', alpha=1e-3, random_state=42, max_iter=5, tol=None)),
+	])
+	
+	'''
+	default_pipeline = Pipeline(steps=[
+		('vect', CountVectorizer()),
+		('tfidf', TfidfTransformer())
+	])
+	
+	custom_pipeline = Pipeline(steps=[
+	'''	
+		
+
 def classify_custom(text_samples, author_name, test):
 	X, y = getXandY(DataUtils('data', 'input.txt').get_data())
 	y = list(y)
@@ -45,11 +62,7 @@ def classify_custom(text_samples, author_name, test):
 
 	X_train, y_train = shuffle(X, y)
 
-	clf = Pipeline([
-		('vect', CountVectorizer()),
-		('tfidf', TfidfTransformer()),
-		('clf', SGDClassifier(loss='log', penalty='l2', alpha=1e-3, random_state=42, max_iter=5, tol=None)),
-	])
+	clf = get_pipeline()
 	clf.fit(X_train, y_train)
 
 	predicted = clf.predict_proba([test])[0]
@@ -62,11 +75,7 @@ def main():
 		X, y, test_size=0.33, random_state=42
 	)
 
-	text_clf = Pipeline([
-		('vect', CountVectorizer()),
-		('tfidf', TfidfTransformer()),
-		('clf', SGDClassifier(loss='log', penalty='l2', alpha=1e-3, random_state=42, max_iter=5, tol=None)),
-	])
+	text_clf = get_pipeline()
 
 	text_clf.fit(X_train, y_train)
 
