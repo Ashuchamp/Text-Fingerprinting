@@ -7,9 +7,10 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from sklearn.decomposition import PCA
 from DataUtils import DataUtils
-from sklearn.pipeline import Pipeline
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 from sklearn.cluster import KMeans
+from classify import get_pipeline
+from sklearn.pipeline import Pipeline
 
 np.random.seed(5)
 
