@@ -5,22 +5,17 @@ import {
 	BrowserRouter as Router,
 	Switch,
 	Route,
-	Link
 } from 'react-router-dom';
 
 import {
 	Navbar,
 	Nav,
 	NavDropdown,
-	Form,
-	FormControl,
-	Button
 } from 'react-bootstrap';
 
 import Home from './Home.js';
 import About from './About.js';
 import Demo from './Demo.js';
-
 import Logo from './logo.svg';
 
 function App() {
@@ -41,14 +36,14 @@ function App() {
   						<Navbar.Toggle aria-controls="basic-navbar-nav" />
   						<Navbar.Collapse id="basic-navbar-nav">
     						<Nav className="mr-auto">
-      							<Nav.Link href="#home"><Link to="/">Home</Link></Nav.Link>
-      							<Nav.Link href="#demo"><Link to="/demo">Demo</Link></Nav.Link>
-								<Nav.Link href="#about"><Link to="/about">About</Link></Nav.Link>
+      							<Nav.Link href="/">Home</Nav.Link>
+      							<Nav.Link href="/demo">Demo</Nav.Link>
+								<Nav.Link href="/about">About</Nav.Link>
       							<NavDropdown title="More" id="basic-nav-dropdown">
-        							<NavDropdown.Item href="#action/3.1">For Developers</NavDropdown.Item>
-        							<NavDropdown.Item href="#action/3.2">Source Code</NavDropdown.Item>
+        							<NavDropdown.Item>For Developers</NavDropdown.Item>
+        							<NavDropdown.Item>Source Code</NavDropdown.Item>
         						<NavDropdown.Divider />
-        						<NavDropdown.Item href="#action/3.4">Team</NavDropdown.Item>
+        						<NavDropdown.Item>Team</NavDropdown.Item>
       						</NavDropdown>
     					</Nav>
   					</Navbar.Collapse>
