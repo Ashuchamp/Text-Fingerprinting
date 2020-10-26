@@ -1,9 +1,10 @@
 from flask import Flask
 from flask import request
 from classify import classify_proba, classify, classify_custom
-
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/')
 def root():
