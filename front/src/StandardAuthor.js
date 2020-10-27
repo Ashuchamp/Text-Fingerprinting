@@ -1,7 +1,10 @@
 import React from 'react';
 import {
     Form,
-    Button
+    Button,
+    Card,
+    ListGroup,
+    Alert
 } from 'react-bootstrap';
 
 export default class StandardAuthor extends React.Component {
@@ -9,7 +12,9 @@ export default class StandardAuthor extends React.Component {
         super(props);
 
         this.state = {
-            value: ''
+            value: '',
+            results: [],
+            error: false
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -22,23 +27,34 @@ export default class StandardAuthor extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        const body = {
-            text: this.state.value
+        if(this.state.value == '') {
+            this.setState({
+                error: true
+            });
+            return;
         }
-        const headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-
+        this.setState({
+            error: false
+        });
+        const formData = new FormData();
+        formData.append('text', this.state.value);
         const request = new Request('http://writeprint.herokuapp.com/predict_proba', {
             method: 'POST',
-            headers: headers,
-            body: JSON.stringify(body)
+            body: formData
         });
         fetch(request)
             .then((response) => response.json())
             .then((data) => {
-                console.log(data);
-            }
-        );
+                this.setState({
+                    results: Object.entries(data).sort((a, b) => {
+                        if(a[1] == b[1]) return 0;
+                        return (a[1] > b[1]) ? -1 : 1;
+                    })
+                });
+                console.log(this.state.results);
+            }).catch((error) => {
+                console.error('Error:', error);
+            });
     }
 
     render() {
@@ -53,6 +69,15 @@ export default class StandardAuthor extends React.Component {
                         Submit
                     </Button>
                 </Form>
+
+                {this.state.error && <Alert variant={'danger'}>Please add at least one word!</Alert>}
+
+                <Card style={{ width: '18rem' }}>
+                    <Card.Header>Results</Card.Header>
+                    <ListGroup variant="flush">
+                        { this.state.results.map((x, i) => <ListGroup.Item key={i}>{x[0]}: {(x[1] * 100).toFixed(2) + '%'}</ListGroup.Item>) }
+                    </ListGroup>
+                </Card>
             </>
         );
     }
