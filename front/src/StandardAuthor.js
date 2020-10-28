@@ -38,7 +38,7 @@ export default class StandardAuthor extends React.Component {
         });
         const formData = new FormData();
         formData.append('text', this.state.value);
-        const request = new Request('http://writeprint.herokuapp.com/predict_proba', {
+        const request = new Request('https://cors-anywhere.herokuapp.com/http://writeprint.herokuapp.com/predict_proba', {
             method: 'POST',
             body: formData
         });
@@ -72,7 +72,7 @@ export default class StandardAuthor extends React.Component {
 
                 {this.state.error && <Alert variant={'danger'}>Please add at least one word!</Alert>}
 
-                <Card style={{ width: '18rem' }}>
+                <Card style={{ margin: '10px', width: '18rem' }}>
                     <Card.Header>Results</Card.Header>
                     <ListGroup variant="flush">
                         { this.state.results.map((x, i) => <ListGroup.Item key={i}>{x[0]}: {(x[1] * 100).toFixed(2) + '%'}</ListGroup.Item>) }
