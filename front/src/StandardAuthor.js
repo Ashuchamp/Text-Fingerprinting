@@ -38,7 +38,7 @@ export default class StandardAuthor extends React.Component {
         });
         const formData = new FormData();
         formData.append('text', this.state.value);
-        const request = new Request('https://cors-anywhere.herokuapp.com/http://writeprint.herokuapp.com/predict_proba', {
+        const request = new Request('https://writeprint.herokuapp.com/predict_proba', {
             method: 'POST',
             body: formData
         });
