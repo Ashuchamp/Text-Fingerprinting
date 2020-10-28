@@ -23,7 +23,7 @@ function App() {
 		<Router>
 			<div>
 				<Navbar bg="light" expand="lg">
-  					<Navbar.Brand href="#home">
+  					<Navbar.Brand href="/">
 						<img
 							src={ Logo }
 							width="30"
