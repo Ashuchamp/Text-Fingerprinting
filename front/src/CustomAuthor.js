@@ -48,7 +48,7 @@ export default class CustomAuthor extends React.Component {
   
     handleSubmit(event) {
       event.preventDefault();
-      if(this.state.test == '' || this.state.values.some(e => e == '')) {
+      if(this.state.test === '' || this.state.values.some(e => e === '')) {
         this.setState({
             error: true
         });
@@ -70,7 +70,7 @@ export default class CustomAuthor extends React.Component {
           .then((data) => {
               this.setState({
                   results: Object.entries(data).sort((a, b) => {
-                      if(a[1] == b[1]) return 0;
+                      if(a[1] === b[1]) return 0;
                       return (a[1] > b[1]) ? -1 : 1;
                   })
               });
