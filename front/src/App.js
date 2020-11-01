@@ -16,6 +16,7 @@ import {
 import Home from './Home.js';
 import About from './About.js';
 import Demo from './Demo.js';
+import Team from './Team.js';
 import Logo from './logo.svg';
 
 function App() {
@@ -43,7 +44,7 @@ function App() {
         							<NavDropdown.Item>For Developers</NavDropdown.Item>
         							<NavDropdown.Item>Source Code</NavDropdown.Item>
         						<NavDropdown.Divider />
-        						<NavDropdown.Item>Team</NavDropdown.Item>
+        						<NavDropdown.Item href="/team">Team</NavDropdown.Item>
       						</NavDropdown>
     					</Nav>
   					</Navbar.Collapse>
@@ -54,6 +55,9 @@ function App() {
 					</Route>
 					<Route path="/demo">
 						<Demo />
+					</Route>
+					<Route path="/team">
+						<Team />
 					</Route>
 					<Route path="/">
 						<Home />

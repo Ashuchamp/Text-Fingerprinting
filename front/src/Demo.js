@@ -7,10 +7,6 @@ import CustomAuthor from './CustomAuthor';
 import StandardAuthor from './StandardAuthor';
 
 export default class Demo extends React.Component{
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return (
             <>
