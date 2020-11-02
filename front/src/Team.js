@@ -24,7 +24,7 @@ export default function Demo() {
 				fontSize: '30px',
 			}}>
                 <CardDeck>
-                <Card style={{ width: '18rem' }}>
+                <Card style={{ width: '100%' }}>
                     <Card.Body>
                         <Card.Title>Daniel Pyon</Card.Title>
                         <Card.Text>
@@ -33,7 +33,7 @@ export default function Demo() {
                         <Button href="https://github.com/danielpyon" target="_blank" variant="primary">Github</Button>
                     </Card.Body>
                 </Card>
-                <Card style={{ width: '18rem' }}>
+                <Card style={{ width: '100%' }}>
                     <Card.Body>
                         <Card.Title>Ajay Rajasekaran</Card.Title>
                         <Card.Text>
@@ -42,7 +42,7 @@ export default function Demo() {
                         <Button href="https://github.com/s-arajasekaran" target="_blank" variant="primary">Github</Button>
                     </Card.Body>
                 </Card>
-                <Card style={{ width: '18rem' }}>
+                <Card style={{ width: '100%' }}>
                     <Card.Body>
                         <Card.Title>Aaryan Jain</Card.Title>
                         <Card.Text>
@@ -51,7 +51,7 @@ export default function Demo() {
                         <Button href="https://github.com/s-aajain" target="_blank" variant="primary">Github</Button>
                     </Card.Body>
                 </Card>    
-                <Card style={{ width: '18rem' }}>
+                <Card style={{ width: '100%' }}>
                     <Card.Body>
                         <Card.Title>Muhammad Masood</Card.Title>
                         <Card.Text>

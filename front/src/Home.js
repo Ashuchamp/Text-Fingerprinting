@@ -1,6 +1,8 @@
 import React from 'react';
 import {
-	ListGroup
+	CardDeck,
+	Card,
+	Button
 } from 'react-bootstrap';
 
 export default function Home() {
@@ -43,11 +45,34 @@ export default function Home() {
 				<p>
 					Wide range of possible users, including
 				</p>
-				<ListGroup horizontal className="justify-content-center">
-						<ListGroup.Item>Researchers</ListGroup.Item>
-						<ListGroup.Item>Librarians/Teachers</ListGroup.Item>
-						<ListGroup.Item>Activists and Dissidents</ListGroup.Item>
-				</ListGroup>
+				<div>
+					<CardDeck>
+						<Card style={{ width: '100%' }}>
+							<Card.Body>
+								<Card.Title>Researchers</Card.Title>
+								<Card.Text>
+									Researchers who want to find relationships between authors, or conduct studies on writing fingerprints can use our tools.
+								</Card.Text>
+							</Card.Body>
+						</Card>
+						<Card style={{ width: '100%' }}>
+							<Card.Body>
+								<Card.Title>Teachers/Librarians</Card.Title>
+								<Card.Text>
+									Teachers and librarians can use this to teach a class or show kids.
+								</Card.Text>
+							</Card.Body>
+						</Card>
+						<Card style={{ width: '100%' }}>
+							<Card.Body>
+								<Card.Title>Activists/Dissidents</Card.Title>
+								<Card.Text>
+									Political activists can check how much of a writing fingerprint they leave behind, to stay anonymous.
+								</Card.Text>
+							</Card.Body>
+						</Card>
+					</CardDeck>
+				</div>
 			</div>
 			
 			
