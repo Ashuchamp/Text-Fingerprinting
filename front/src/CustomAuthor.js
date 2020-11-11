@@ -58,10 +58,11 @@ export default class CustomAuthor extends React.Component {
           error: false
       });
       const formData = new FormData();
-      formData.append('text', this.state.values);
+      formData.append('text', JSON.stringify(this.state.values));
       formData.append('test', this.state.test);
       formData.append('user', 'user');
-      const request = new Request('https://writeprint.herokuapp.com/predict_proba', {
+	  
+      const request = new Request('https://writeprint.herokuapp.com/predict_custom', {
           method: 'POST',
           body: formData
       });

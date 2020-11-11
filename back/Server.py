@@ -33,10 +33,11 @@ def predict():
 
 @app.route('/predict_custom', methods=['POST'])
 def predict_custom():
+	content = request.get_json()
 	# Some user writing samples
-	text_samples = request.form['text']
-	test = request.form['test']
-	author_name = request.form['author']
+	text_samples = content['text']
+	test = content['test']
+	author_name = content['author']
 
 	results = classify_custom(text_samples, author_name, test)
 	probabilities = {}
