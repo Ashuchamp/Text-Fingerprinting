@@ -64,7 +64,15 @@ export default class CustomAuthor extends React.Component {
 	  
       const request = new Request('https://writeprint.herokuapp.com/predict_custom', {
           method: 'POST',
-          body: formData
+          headers: {
+			'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+			  'text': this.state.values,
+			  'test': this.state.test,
+			  'author': 'user'
+		  })
       });
       fetch(request)
           .then((response) => response.json())
